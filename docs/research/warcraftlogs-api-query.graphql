@@ -1,0 +1,21 @@
+# 根据官方 Schema 编写的查询模板；本次未持有 OAuth token，尚未执行认证查询。
+# variables 示例：
+# {"name":"寰球旅行","realm":"无尽之海","region":"CN","zone":53}
+# realm 应以 worldData 返回的服务器 slug 为准，先核对中文 slug。
+query CharacterOverview($name: String!, $realm: String!, $region: String!, $zone: Int!) {
+  characterData {
+    character(name: $name, serverSlug: $realm, serverRegion: $region) {
+      id
+      canonicalID
+      classID
+      level
+      hidden
+      zoneRankings(zoneID: $zone, difficulty: 5, metric: dps, partition: -1)
+    }
+  }
+  rateLimitData {
+    limitPerHour
+    pointsSpentThisHour
+    pointsResetIn
+  }
+}
